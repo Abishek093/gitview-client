@@ -1,0 +1,97 @@
+.followers-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .back-button {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+  
+  .back-button:hover {
+    background-color: #e1e1e1;
+  }
+  
+  .followers-header {
+    margin-bottom: 20px;
+  }
+  
+  .followers-header h1 {
+    margin-bottom: 8px;
+  }
+  
+  .followers-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  .follower-card {
+    display: flex;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    background-color: #fff;
+  }
+  
+  .follower-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .follower-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
+  
+  .follower-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .follower-info h3 {
+    margin: 0 0 8px 0;
+  }
+  
+  .follower-info a {
+    color: #0366d6;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .follower-info a:hover {
+    text-decoration: underline;
+  }
+  
+  .no-followers {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #586069;
+    font-size: 16px;
+    background-color: #f6f8fa;
+    border-radius: 6px;
+  }
+  
+  .loading, .error {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+  }
+  
+  .error {
+    color: #cb2431;
+  }

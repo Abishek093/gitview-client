@@ -40,20 +40,31 @@ export const useUserRepositories = (username: string, pagination: PaginationPara
   });
 };
 
+export const useRepositoryDetails = (username: string, repoName: string) => {
+  return useQuery<Repository[]>({
+    queryKey: ['repos-details'],
+    queryFn: async () => {
+      const { data } = await api.get(`/repos/${username}/${repoName}`);
+      return data;
+    },
+    enabled: !!username,
+  });
+};
+
 export const useUserFollowers = (username: string) => {
   return useQuery({
     queryKey: ['followers', username],
     queryFn: async () => {
-      const { data } = await api.get(`/users/${username}/followers`);
-      return data;
+      const { data } = await api.get(`/friends/${username}/followers`);
+      return data.friends; 
     },
     enabled: !!username, 
   });
 };
 
-export const useFindMutualFriends = (username: string) => {
+export const useMutualFriends = (username: string) => {
   return useQuery({
-    queryKey: ['friends', username],
+    queryKey: ['mutual-friends', username],
     queryFn: async () => {
       const { data } = await api.get(`/friends/${username}`);
       return data.friends;

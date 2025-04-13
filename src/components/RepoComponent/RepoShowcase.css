@@ -1,202 +1,213 @@
 .repo-showcase-container {
-    width: 100%;
-    margin: 0 auto;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-}
-  
-.repo-section-title {
-    font-size: 24px;
-    font-weight: 600;
-    color: #24292e;
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #e1e4e8;
+  width: 100%;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
-/* Ensure grid layout is applied correctly */
+.repo-section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #24292e;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+/* Fixed grid layout with equal-sized cells */
 .repo-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Always 2 columns */
-    gap: 20px;
-    margin-top: 16px;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 16px;
+}
+
+/* Ensure each card takes exactly the same size within its grid cell */
 .repo-card {
-    background-color: #fff;
-    border: 1px solid #e1e4e8;
-    border-radius: 8px;
-    padding: 20px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  background-color: #fff;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%; /* Fill the entire grid cell height */
+  box-sizing: border-box; /* Include padding in width/height calculations */
 }
-  
+
 .repo-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
-  
+
 .repo-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  width: 100%; /* Ensure the header spans the full width */
 }
-  
+
 .repo-icon {
-    margin-right: 16px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: #f6f8fa;
-    overflow: hidden;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+  margin-right: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f6f8fa;
+  overflow: hidden;
 }
-  
+
 .repo-title-container {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0; /* Allow content to shrink if needed */
+  flex-grow: 1;
 }
-  
+
 .repo-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #0366d6;
-    margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0366d6;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%; /* Prevent title from overflowing */
 }
-  
+
 .verified-badge {
-    background-color: #28a745;
-    color: white;
-    width: 18px;
-    height: 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin-left: 8px;
-    font-size: 12px;
+  flex-shrink: 0; /* Prevent badge from shrinking */
+  background-color: #28a745;
+  color: white;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-left: 8px;
+  font-size: 12px;
 }
-  
+
 .repo-description {
-    color: #586069;
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-    flex-grow: 1;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+  color: #586069;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 100%; /* Ensure description takes full width */
 }
-  
+
 .repo-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    font-size: 13px;
-    color: #586069;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: #586069;
+  width: 100%; /* Ensure stats takes full width */
+  margin-top: auto; /* Push stats to bottom of card */
 }
-  
+
 .repo-language {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
-  
+
 .language-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+  flex-shrink: 0; /* Prevent dot from shrinking */
 }
-  
+
 .repo-stars, .repo-forks {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
-  
+
 .repo-loading, .repo-error, .repo-empty {
-    text-align: center;
-    padding: 40px;
-    color: #586069;
-    font-size: 16px;
-    background-color: #f6f8fa;
-    border-radius: 6px;
-    border: 1px solid #e1e4e8;
+  text-align: center;
+  padding: 40px;
+  color: #586069;
+  font-size: 16px;
+  background-color: #f6f8fa;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
 }
-  
+
 .repo-error {
-    color: #cb2431;
+  color: #cb2431;
 }
 
 .pagination-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  gap: 16px;
+}
+
+.pagination-button {
+  padding: 8px 16px;
+  background-color: #4F9CF9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.pagination-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #3a8ae0;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Responsive styling */
+@media (max-width: 1200px) {
+  .repo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .repo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 16px;
   }
   
-  .pagination-button {
-    padding: 8px 16px;
-    background-color: #4F9CF9;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
+  .repo-card {
+    padding: 16px;
   }
   
-  .pagination-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+  .repo-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
   }
-  
-  .pagination-button:hover:not(:disabled) {
-    background-color: #3a8ae0;
-  }
-  
-  .pagination-info {
-    font-size: 14px;
-    color: #555;
-  }
-  
-/* Responsive styling */
-@media (max-width: 1200px) {
-    .repo-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
 }
-  
-@media (max-width: 768px) {
-    .repo-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 16px;
-    }
-    
-    .repo-card {
-        padding: 16px;
-    }
-    
-    .repo-icon {
-        width: 32px;
-        height: 32px;
-        margin-right: 12px;
-    }
-}
-  
+
 @media (max-width: 576px) {
-    .repo-grid {
-        grid-template-columns: 1fr;
-    }
+  .repo-grid {
+    grid-template-columns: 1fr;
+  }
 }

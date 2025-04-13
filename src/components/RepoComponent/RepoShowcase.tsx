@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './RepoShowcase.css';
 
-// Interface for repository data
 export interface Repository {
   id: number;
   name: string;
@@ -24,31 +24,36 @@ interface RepoShowcaseProps {
   perPage?: number;
 }
 
-const RepoShowcase = ({ 
-  username, 
-  repositories, 
-  isLoading, 
-  error, 
+const RepoShowcase = ({
+  username,
+  repositories,
+  isLoading,
+  error,
   totalRepos = 0,
   currentPage = 1,
   onPageChange,
   perPage = 6
 }: RepoShowcaseProps) => {
   const [repos, setRepos] = useState<Repository[]>([]);
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (repositories && repositories.length > 0) {
       setRepos(repositories);
     }
   }, [repositories]);
 
-  // Calculate pagination values
   const totalPages = Math.ceil(totalRepos / perPage);
-  
-  // Handle page change
+
   const handlePageChange = (page: number) => {
     if (onPageChange && page >= 1 && page <= totalPages) {
       onPageChange(page);
+    }
+  };
+
+  const handleRepoClick = (repoName: string) => {
+    if (username) {
+      navigate(`/repo/${username}/${repoName}`);
     }
   };
 
@@ -69,7 +74,7 @@ const RepoShowcase = ({
       <h2 className="repo-section-title">GitHub Repositories</h2>
       <div className="repo-grid">
         {repos.map((repo) => (
-          <div key={repo.id} className="repo-card" onClick={() => window.open(repo.html_url, '_blank')}>
+          <div key={repo.id} className="repo-card" onClick={() => handleRepoClick(repo.name)}>
             <div className="repo-header">
               <div className="repo-icon">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -91,8 +96,8 @@ const RepoShowcase = ({
             <div className="repo-stats">
               {repo.language && (
                 <span className="repo-language">
-                  <span 
-                    className="language-dot" 
+                  <span
+                    className="language-dot"
                     style={{ backgroundColor: getLanguageColor(repo.language) }}
                   ></span>
                   {repo.language}
@@ -108,24 +113,24 @@ const RepoShowcase = ({
           </div>
         ))}
       </div>
-      
-      {/* Pagination Controls */}
+
+      { }
       {totalPages > 1 && (
         <div className="pagination-controls">
-          <button 
-            onClick={() => handlePageChange(currentPage - 1)} 
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage <= 1 || isLoading}
             className="pagination-button"
           >
             Previous
           </button>
-          
+
           <div className="pagination-info">
             Page {currentPage} of {totalPages}
           </div>
-          
-          <button 
-            onClick={() => handlePageChange(currentPage + 1)} 
+
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage >= totalPages || isLoading}
             className="pagination-button"
           >
@@ -137,7 +142,6 @@ const RepoShowcase = ({
   );
 };
 
-// Helper function to get color for language dot
 const getLanguageColor = (language: string): string => {
   const colors: Record<string, string> = {
     JavaScript: '#f1e05a',
@@ -149,10 +153,10 @@ const getLanguageColor = (language: string): string => {
     Ruby: '#701516',
     Go: '#00ADD8',
     PHP: '#4F5D95',
-    // Add more languages as needed
+
   };
-  
-  return colors[language] || '#858585'; // Default gray
+
+  return colors[language] || '#858585';
 };
 
 export default RepoShowcase;
