@@ -1,4 +1,3 @@
-import RepoDetails from "../../components/RepoDeatail/RepoDetails";
 import FollowersPage from "../../pages/FollowersPage/FollowersPage";
 import Home from "../../pages/Home/Home";
 import UserProfile from "../../pages/Profile/UserProfile";

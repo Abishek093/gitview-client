@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUserData, useUserRepositories } from '../../services/githubService';
@@ -76,9 +76,9 @@ const UserProfile = () => {
         dispatch(setRepoPage({ username, page }));
     };
 
-    const goToRepoDetails = (repoName: string) => {
-        navigate(`/repos/${username}/${repoName}`);
-    };
+    // const goToRepoDetails = (repoName: string) => {
+    //     navigate(`/repos/${username}/${repoName}`);
+    // };
 
     const goToFollowers = () => {
         navigate(`/followers/${username}`);
