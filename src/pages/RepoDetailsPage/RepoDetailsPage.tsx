@@ -16,7 +16,6 @@ const RepoDetailsPage = () => {
   
   console.log('Route Params:', { username, repoName });
   
-  // Fetch repo details using React Query
   const {
     data: repoData,
     isLoading,
@@ -26,11 +25,9 @@ const RepoDetailsPage = () => {
     queryFn: async () => {
       if (!username || !repoName) throw new Error('Username or repository name is missing');
       
-      // Important: Note the URL structure here - this is likely the issue
       console.log(`Fetching repo details for: ${username}/${repoName}`);
       
       try {
-        // This URL should match your backend route structure
         const { data } = await api.get(`/repos/${username}/${repoName}`);
         console.log('Received repo data:', data);
         return data;

@@ -56,7 +56,7 @@ export const useUserFollowers = (username: string) => {
     queryKey: ['followers', username],
     queryFn: async () => {
       const { data } = await api.get(`/friends/${username}/followers`);
-      return data; // Return the entire response which contains {count, friends}
+      return data; 
     },
     enabled: !!username,
   });
@@ -67,7 +67,7 @@ export const useMutualFriends = (username: string) => {
     queryKey: ['mutual-friends', username],
     queryFn: async () => {
       const { data } = await api.get(`/friends/${username}`);
-      return data; // Return the entire response which contains {count, friends}
+      return data; 
     },
     enabled: !!username,
   });
