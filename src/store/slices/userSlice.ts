@@ -7,11 +7,12 @@ export interface GitHubUser {
   html_url: string;
   name: string | null;
   bio: string | null;
+  company: string | null;
+  location: string | null;
+  blog: string | null;
   public_repos: number;
   followers: number;
   following: number;
-  location: string | null;
-  blog: string | null;
   created_at: string;
 }
 
@@ -49,6 +50,11 @@ export const userSlice = createSlice({
     clearCurrentUser: (state) => {
       state.currentUser = null;
     },
+    updateUserSuccess: (state, action: PayloadAction<GitHubUser>) => {
+      state.loading = false;
+      state.currentUser = action.payload;
+      state.searchedUsers[action.payload.login] = action.payload;
+    },
   },
 });
 
@@ -56,7 +62,8 @@ export const {
   fetchUserStart, 
   fetchUserSuccess, 
   fetchUserFailure,
-  clearCurrentUser
+  clearCurrentUser,
+  updateUserSuccess
 } = userSlice.actions;
 
 export default userSlice.reducer;
