@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions} from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { api } from './api';
 import { GitHubUser } from '../store/slices/userSlice';
 import { Repository } from '../store/slices/repoSlice';
@@ -41,13 +41,13 @@ export const useUserRepositories = (username: string, pagination: PaginationPara
 };
 
 export const useRepositoryDetails = (username: string, repoName: string) => {
-  return useQuery<Repository[]>({
-    queryKey: ['repos-details'],
+  return useQuery<Repository>({
+    queryKey: ['repos-details', username, repoName],
     queryFn: async () => {
       const { data } = await api.get(`/repos/${username}/${repoName}`);
       return data;
     },
-    enabled: !!username,
+    enabled: !!username && !!repoName,
   });
 };
 
@@ -56,9 +56,9 @@ export const useUserFollowers = (username: string) => {
     queryKey: ['followers', username],
     queryFn: async () => {
       const { data } = await api.get(`/friends/${username}/followers`);
-      return data.friends; 
+      return data; // Return the entire response which contains {count, friends}
     },
-    enabled: !!username, 
+    enabled: !!username,
   });
 };
 
@@ -67,7 +67,7 @@ export const useMutualFriends = (username: string) => {
     queryKey: ['mutual-friends', username],
     queryFn: async () => {
       const { data } = await api.get(`/friends/${username}`);
-      return data.friends;
+      return data; // Return the entire response which contains {count, friends}
     },
     enabled: !!username,
   });

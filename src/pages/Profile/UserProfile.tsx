@@ -22,12 +22,10 @@ const UserProfile = () => {
 
     const { repositories, pagination, loading: reposStoreLoading } = useSelector((state: RootState) => state.repos);
     
-    // Get pagination for current user
     const userPagination = pagination[username] || { page: 1, perPage: 6, totalCount: 0 };
     
     const shouldFetchUser = !userFromStore;
 
-    // Fetch user data using React Query
     const {
         data: userData,
         isLoading: userLoading,
@@ -37,7 +35,6 @@ const UserProfile = () => {
         queryKey: ['user', username] 
     });
 
-    // Fetch repositories using React Query with pagination
     const {
         data: reposData,
         isLoading: reposLoading,
@@ -47,7 +44,6 @@ const UserProfile = () => {
         per_page: userPagination.perPage
     });
 
-    // Update Redux store with data from React Query
     useEffect(() => {
         if (userData && shouldFetchUser) {
             dispatch(fetchUserSuccess(userData));
@@ -75,10 +71,6 @@ const UserProfile = () => {
     const handlePageChange = (page: number) => {
         dispatch(setRepoPage({ username, page }));
     };
-
-    // const goToRepoDetails = (repoName: string) => {
-    //     navigate(`/repos/${username}/${repoName}`);
-    // };
 
     const goToFollowers = () => {
         navigate(`/followers/${username}`);

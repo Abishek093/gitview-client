@@ -19,17 +19,20 @@ const FollowersPage = () => {
   
   // Fetch the user's followers
   const {
-    data: followers,
+    data: followerData,
     isLoading: followersLoading,
     error: followersError
   } = useUserFollowers(username);
 
+  const followers = followerData?.friends || [];
+  console.log("Followers data:", followers);
+
   const goToProfile = (followerUsername: string) => {
-    navigate(`/users/${followerUsername}`);
+    navigate(`/user/${followerUsername}`);
   };
 
   const goBack = () => {
-    navigate(`/users/${username}`);
+    navigate(`/user/${username}`);
   };
 
   if (userLoading || followersLoading) {
@@ -54,16 +57,16 @@ const FollowersPage = () => {
       <div className="followers-list">
         {followers && followers.length > 0 ? (
           followers.map((follower: any) => (
-            <div key={follower.id} className="follower-card" onClick={() => goToProfile(follower.login)}>
+            <div key={follower.id || follower._id || follower.friend} className="follower-card" onClick={() => goToProfile(follower.friend || follower.login)}>
               <img 
-                src={follower.avatar_url} 
-                alt={`${follower.login}'s avatar`} 
+                src={follower.avatar_url || `https://avatars.githubusercontent.com/${follower.friend || follower.login}`} 
+                alt={`${follower.friend || follower.login}'s avatar`} 
                 className="follower-avatar" 
               />
               <div className="follower-info">
-                <h3>{follower.login}</h3>
+                <h3>{follower.friend || follower.login}</h3>
                 <a 
-                  href={follower.html_url} 
+                  href={follower.html_url || `https://github.com/${follower.friend || follower.login}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
