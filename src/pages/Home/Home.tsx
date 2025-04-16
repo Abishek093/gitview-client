@@ -45,7 +45,7 @@ const Home = () => {
         <h1 className="title">GitView</h1>
         <p className="subtitle">Search for any GitHub user to explore their repositories</p>
         
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit} className="search-section">
           <div className="search-box">
             <input 
               type="text" 
@@ -62,7 +62,7 @@ const Home = () => {
               className="search-button"
               disabled={!formik.isValid || formik.values.username === ''}
             >
-              Search
+              Search User
             </button>
           </div>
           {formik.touched.username && formik.errors.username && (
@@ -70,12 +70,18 @@ const Home = () => {
           )}
         </form>
         
-        <button 
-          onClick={handleExploreUsers}
-          className="explore-button"
-        >
-          Explore Users
-        </button>
+        <div className="separator">
+          <span>OR</span>
+        </div>
+        
+        <div className="explore-section">
+          <button 
+            onClick={handleExploreUsers}
+            className="explore-button"
+          >
+            Browse Search History
+          </button>
+        </div>
 
         <div className="github-icon">
           <svg height="64" viewBox="0 0 16 16" width="64">
