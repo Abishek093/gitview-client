@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './Home.css';
 import { fetchUserFailure, fetchUserStart, fetchUserSuccess } from '../../store/slices/userSlice';
 import { api } from '../../services/api';
+import { RootState } from '../../store'; 
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { loading, error } = useSelector((state: RootState) => state.user);
 
   const validationSchema = Yup.object({
     username: Yup.string()
@@ -26,11 +28,14 @@ const Home = () => {
       dispatch(fetchUserStart());
       try {
         const { data } = await api.get(`/users/${values.username}`);
-        console.log(data)
         dispatch(fetchUserSuccess(data));
         navigate(`/user/${values.username}`);
-      } catch (error) {
-        dispatch(fetchUserFailure('Failed to fetch user'));
+      } catch (error: any) {
+        // Check if it's a 404 error or any other error
+        const errorMessage = error.response?.status === 404 
+          ? `User "${values.username}" not found` 
+          : 'Failed to fetch user';
+        dispatch(fetchUserFailure(errorMessage));
       }
     }
   });
@@ -60,13 +65,24 @@ const Home = () => {
             <button 
               type="submit" 
               className="search-button"
-              disabled={!formik.isValid || formik.values.username === ''}
+              disabled={loading || !formik.isValid || formik.values.username === ''}
             >
-              Search User
+              {loading ? 'Searching...' : 'Search User'}
             </button>
           </div>
           {formik.touched.username && formik.errors.username && (
             <div className="error-message">{formik.errors.username}</div>
+          )}
+          {/* Display error from Redux state if present */}
+          {error && (
+            <div className="error-message">{error}</div>
+          )}
+          {/* Display loading indicator */}
+          {loading && (
+            <div className="loading-indicator">
+              <div className="spinner"></div>
+              <span>Loading user data...</span>
+            </div>
           )}
         </form>
         
@@ -78,6 +94,7 @@ const Home = () => {
           <button 
             onClick={handleExploreUsers}
             className="explore-button"
+            disabled={loading}
           >
             Browse Search History
           </button>
